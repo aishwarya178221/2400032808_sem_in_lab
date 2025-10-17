@@ -1,0 +1,76 @@
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const products = [
+    {
+      id: 1,
+      name: "KL University Hoodie",
+      price: "₹799",
+      shortDesc: "Comfortable cotton hoodie.",
+      image: "https://via.placeholder.com/250x150?text=Hoodie",
+      fullDesc:
+        "A warm and stylish hoodie made with 100% cotton. Perfect for everyday wear around campus."
+    },
+    {
+      id: 2,
+      name: "KL University Mug",
+      price: "₹299",
+      shortDesc: "Ceramic coffee mug.",
+      image: "https://via.placeholder.com/250x150?text=Mug",
+      fullDesc:
+        "A high-quality ceramic mug with KL University logo. Microwave and dishwasher safe."
+    },
+    {
+      id: 3,
+      name: "KLU Notebook",
+      price: "₹199",
+      shortDesc: "Spiral-bound ruled notebook.",
+      image: "https://via.placeholder.com/250x150?text=Notebook",
+      fullDesc:
+        "A durable spiral-bound notebook with 200 pages. Ideal for lectures, notes, and projects."
+    }
+  ];
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const openPopup = (product) => {
+    setSelectedProduct(product);
+  };
+  const closePopup = () => {
+    setSelectedProduct(null);
+  };
+
+  return (
+    <div className="App">
+      <h1>KL University Online Store</h1>
+
+      <div className="product-list">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="product-card"
+            onClick={() => openPopup(product)}
+          >
+            <h2>{product.name}</h2>
+            <p>{product.shortDesc}</p>
+            <p className="price">{product.price}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Pop-up Section */}
+      {selectedProduct && (
+        <div className="popup-overlay">
+          <div className="popup">
+            <button className="close-btn" onClick={closePopup}>
+              ✖
+            </button>
+            <h2>{selectedProduct.name}</h2>
+            <img src={selectedProduct.image} alt={selectedProduct.name} />
+            <p className="price">{selectedProduct.price}</p>
+            <p>{selectedProduct.fullDesc}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
